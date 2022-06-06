@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">diploma_test</string>
+    <string name="title_chats">Чаты</string>
+    <string name="title_map">Карта</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Новости</string>
+    <string name="title_notifications">Notifications</string>
+</resources>
