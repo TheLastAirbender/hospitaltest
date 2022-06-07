@@ -18,6 +18,12 @@
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
+        android:id="@+id/navigation_wiki"
+        android:name="com.example.diploma_test.ui.WikiFragment"
+        android:label="@string/title_wiki"
+        tools:layout="@layout/fragment_wiki" />
+
+    <fragment
         android:id="@+id/navigation_map"
         android:name="com.example.diploma_test.ui.MapFragment"
         android:label="@string/title_notifications"

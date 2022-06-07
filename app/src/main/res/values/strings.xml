@@ -1,8 +1,12 @@
 <resources>
     <string name="app_name">diploma_test</string>
+    <string name="title_wiki">Справочник</string>
     <string name="title_chats">Чаты</string>
     <string name="title_map">Карта</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Новости</string>
     <string name="title_notifications">Notifications</string>
+    <string name="mapbox_access_token">pk.eyJ1Ijoic2tyYXBpdm5veSIsImEiOiJjbDQzdzBpNHMwN21mM2JvZDVycHg0MjI4In0.EVAin0I89fnCOHGqnckCjg</string>
+    <string name="search_hint">Введите фамилию врача или номер кабинета</string>
+    <string name="search_results">Результаты поиска:</string>
 </resources>
