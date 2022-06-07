@@ -4,8 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Sergey/Downloads/diploma_test/diploma_test/app/src/main/res/layout/activity_main.xml" value="0.24547101449275363" />
+        <entry key="..\:/Users/Sergey/Downloads/diploma_test/diploma_test/app/src/main/res/layout/chat_recycler_item.xml" value="0.24547101449275363" />
+        <entry key="..\:/Users/Sergey/Downloads/diploma_test/diploma_test/app/src/main/res/layout/feed_recycle_item.xml" value="0.264" />
         <entry key="..\:/Users/Sergey/Downloads/diploma_test/diploma_test/app/src/main/res/layout/fragment_chats.xml" value="0.23385416666666667" />
         <entry key="..\:/Users/Sergey/Downloads/diploma_test/diploma_test/app/src/main/res/layout/fragment_dashboard.xml" value="0.24547101449275363" />
+        <entry key="..\:/Users/Sergey/Downloads/diploma_test/diploma_test/app/src/main/res/layout/login_layout.xml" value="0.1" />
         <entry key="..\:/Users/Sergey/Downloads/diploma_test/diploma_test/app/src/main/res/layout/recycle_item.xml" value="0.2" />
         <entry key="..\:/Users/Sergey/Downloads/diploma_test/diploma_test/app/src/main/res/menu/bottom_nav_menu.xml" value="0.11302083333333333" />
       </map>
@@ -46,7 +49,7 @@
       </profile-state>
     </entry>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

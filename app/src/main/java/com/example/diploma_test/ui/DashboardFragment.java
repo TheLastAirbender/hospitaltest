@@ -1,11 +1,9 @@
 package com.example.diploma_test.ui;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,17 +14,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.diploma_test.R;
-import com.example.diploma_test.adapters.MyRecyclerAdapter;
+import com.example.diploma_test.recyclers.DashboardRecyclerAdapter;
 import com.example.diploma_test.viewmodel.DashboardViewModel;
-import com.google.android.material.shape.InterpolateOnScrollPositionChangeHelper;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class DashboardFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private MyRecyclerAdapter recyclerAdapter;
+    private DashboardRecyclerAdapter recyclerAdapter;
     private DashboardViewModel dashboardViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -50,7 +44,7 @@ public class DashboardFragment extends Fragment {
     }
 
     private void initRecyclerView(View context) {
-        recyclerAdapter = new MyRecyclerAdapter();
+        recyclerAdapter = new DashboardRecyclerAdapter();
         recyclerAdapter.init(dashboardViewModel.getNewsFeed());
         // Add the following lines to create RecyclerView
         recyclerView = context.findViewById(R.id.recyclerview);

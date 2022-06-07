@@ -1,4 +1,4 @@
-package com.example.diploma_test.adapters;
+package com.example.diploma_test.recyclers;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,13 +9,12 @@ import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.diploma_test.R;
-import com.example.diploma_test.models.News;
+import com.example.diploma_test.entity.News;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerViewHolder> {
+public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecyclerViewHolder> {
     private Random random;
 //    private List<String> dataset;
     private LiveData<List<News>> dataset = null;
@@ -28,25 +27,26 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerViewHolder
 
     @Override
     public int getItemViewType(final int position) {
-        return R.layout.recycle_item;
+        return R.layout.feed_recycle_item;
     }
 
     @NonNull
     @Override
-    public MyRecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public DashboardRecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
-        return new MyRecyclerViewHolder(view);
+        return new DashboardRecyclerViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyRecyclerViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DashboardRecyclerViewHolder holder, int position) {
         //Integer newInt = dataset.get(position);
         System.out.println(position);
-        System.out.println(dataset.getValue().get(position).getHeader());
+        System.out.println(dataset.getValue().get(position).getAuthor());
         //try{ holder.setHeader(dataset.get(position).getHeader());} catch (Exception e) {System.out.println(e);};
-        holder.setHeader(dataset.getValue().get(position).getHeader());
-        holder.setText(dataset.getValue().get(position).getText());
+        holder.setPostAuthor(dataset.getValue().get(position).getAuthor());
+        holder.setPostInfoAndDate(dataset.getValue().get(position).getInfoAndDate().toString());
+        holder.setPostText(dataset.getValue().get(position).getText());
 //        holder.setText(dataset.get(position));
 //        holder.flagView.setImageResource(state.getFlagResource());
 //        holder.nameView.setText(state.getName());
@@ -56,6 +56,6 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerViewHolder
     @Override
     public int getItemCount() {
         // сюда скорее всего из ViewModel вписать количество
-        return 2;
+        return dataset.getValue().size();
     }
 }

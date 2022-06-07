@@ -1,10 +1,11 @@
 package com.example.diploma_test.repo;
 
-import com.example.diploma_test.models.News;
+import com.example.diploma_test.entity.News;
 
 import androidx.lifecycle.MutableLiveData;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class NewsRepo {
@@ -30,9 +31,9 @@ public class NewsRepo {
 
     private void setNews(){
         dataset = new ArrayList<>();
-        dataset.add(new News("header","news text","image source"));
-        dataset.add(new News("2 header","2 news text","2 image source"));
-        dataset.add(new News("3 header","4 news text","3 image source"));
+        dataset.add(new News("Вася Пупкин",new Date(System.currentTimeMillis()),"POST TEXT","image source"));
+        dataset.add(new News("Андрей Сороковиков",new Date(System.currentTimeMillis()),"POST TEXT 2","image source"));
+        dataset.add(new News("Лёня Петров",new Date(System.currentTimeMillis()),"ТУПО ЗАПОСТИЛ КРИНЖ","image source"));
 
     }
 }

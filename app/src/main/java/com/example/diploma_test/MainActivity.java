@@ -1,5 +1,7 @@
 package com.example.diploma_test;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -15,6 +17,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        SharedPreferences prefs = this.getSharedPreferences("com.example.diploma_test", Context.MODE_PRIVATE);
+        if (prefs == null) {
+            this.finish();
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);

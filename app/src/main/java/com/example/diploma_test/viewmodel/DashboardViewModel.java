@@ -1,6 +1,6 @@
 package com.example.diploma_test.viewmodel;
 
-import com.example.diploma_test.models.News;
+import com.example.diploma_test.entity.News;
 import com.example.diploma_test.repo.NewsRepo;
 
 import java.util.ArrayList;
