@@ -5,15 +5,18 @@ import android.app.Application;
 import com.example.diploma_test.R;
 import com.mapbox.mapboxsdk.Mapbox;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class MapViewModel extends ViewModel {
+public class MapViewModel extends AndroidViewModel {
 
     private MutableLiveData<String> mText;
 
-    public MapViewModel() {
+    public MapViewModel(@NonNull Application application) {
+        super(application);
 
 //        mAllPlacesArchive = mRepository.getPlacesFromArchive();
 //        mAllPlacesToService = mRepository.getPlacesToService();

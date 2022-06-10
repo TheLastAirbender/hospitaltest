@@ -1,6 +1,7 @@
 package com.example.diploma_test.dao;
 
 import com.example.diploma_test.entity.News;
+import com.example.diploma_test.entity.User;
 
 import java.util.List;
 
@@ -12,21 +13,19 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 @Dao
-public interface NewsDao {
-    @Query("SELECT * FROM news")
-    LiveData<List<News>> getAll();
-
-    @Query("SELECT * FROM news WHERE news_id = :id")
-    News getById(long id);
+public interface UserDao {
+    @Query("SELECT * FROM user")
+    LiveData<List<User>> getAll();
 
     @Insert
-    void insertAll(List<News> news);
+    void insertAll(List<User> listUsers);
+
     @Insert
-    void insert(News news_item);
+    void insert(User user);
 
     @Update
-    void update(News news_item);
+    void update(User user);
 
     @Delete
-    void delete(News news_item);
+    void delete(User user);
 }

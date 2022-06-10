@@ -7,12 +7,14 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Diploma_test">
+        android:theme="@style/Theme.Diploma_test"
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".AuthActivity"
             android:exported="true"
             android:label="@string/app_name">
             <intent-filter>
+
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -23,6 +25,7 @@
             android:label="@string/app_name">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
+
             </intent-filter>
             <meta-data android:name="android.app.default_searchable"
                 android:value=".SearchResultsActivity" />
@@ -38,5 +41,5 @@
                 android:resource="@xml/searchable" />
         </activity>
     </application>
-
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

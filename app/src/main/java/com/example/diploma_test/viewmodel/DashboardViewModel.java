@@ -1,40 +1,67 @@
 package com.example.diploma_test.viewmodel;
 
+import android.app.Application;
+import android.content.Context;
+
+import com.example.diploma_test.api.GitHubRepo;
 import com.example.diploma_test.entity.News;
+import com.example.diploma_test.repo.GithubRepoTest;
 import com.example.diploma_test.repo.NewsRepo;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.GuardedBy;
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class DashboardViewModel extends ViewModel {
+public class DashboardViewModel extends AndroidViewModel {
 
     private MutableLiveData<String> mText;
     private ArrayList<News> newsList;
 
-    private NewsRepo mRepository;
+    private NewsRepo newsRepo;
     public MutableLiveData<List<News>> mAllPlaces;
 
-    public DashboardViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is dashboard fragment");
+    //test
+    private LiveData<List<GitHubRepo>> gitRepos;
 
-        if (newsList != null) {
-            return;
-        }
+    // test
+    private GithubRepoTest gitRepo;
+
+    public DashboardViewModel(@NonNull Application application) {
+        super(application);
+//
+//        if (newsList != null) {
+//            return;
+//        }
         // здесь сначала вытаскиваем все данные из хранилища
-        mRepository = NewsRepo.getInstance();
-        mAllPlaces = mRepository.getNewsfeed();
+        newsRepo = new NewsRepo(application);
+//        mAllPlaces = mRepository.getNewsfeed();
+
+//        gitRepo = new GithubRepoTest(application);
+//        gitRepos = gitRepo.getRepos(application);
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public LiveData<List<GitHubRepo>> getText() {
+        if (gitRepos==null) {
+            gitRepos = gitRepo.getRepos(getApplication());
+        }
+        return gitRepos;
     }
 
-    public LiveData<List<News>> getNewsFeed() {
-        return mAllPlaces;
+    public LiveData<List<News>> observableListOfAllNews() {
+        return newsRepo.getAllNewsFromRoom();
     }
+
+    public void requestForAllNews() {
+        newsRepo.getAllNewsFromServer();
+    }
+
+//    public void getRepos() {
+//        gitRepos =  gitRepo.getRepos();
+//    }
 }

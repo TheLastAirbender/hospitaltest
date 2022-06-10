@@ -17,12 +17,13 @@ import java.util.Random;
 public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecyclerViewHolder> {
     private Random random;
 //    private List<String> dataset;
-    private LiveData<List<News>> dataset = null;
+    private List<News> news;
 
 
-    public void init(LiveData<List<News>> dataset) {
+    public void setNews(List<News> dataset) {
         //this.random = new Random(seed);
-        this.dataset = dataset;
+        this.news = dataset;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -42,11 +43,11 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
     public void onBindViewHolder(@NonNull DashboardRecyclerViewHolder holder, int position) {
         //Integer newInt = dataset.get(position);
         System.out.println(position);
-        System.out.println(dataset.getValue().get(position).getAuthor());
+        System.out.println(news.get(position).getAuthor());
         //try{ holder.setHeader(dataset.get(position).getHeader());} catch (Exception e) {System.out.println(e);};
-        holder.setPostAuthor(dataset.getValue().get(position).getAuthor());
-        holder.setPostInfoAndDate(dataset.getValue().get(position).getInfoAndDate().toString());
-        holder.setPostText(dataset.getValue().get(position).getText());
+        holder.setPostAuthor(news.get(position).getAuthor());
+        holder.setPostInfoAndDate(news.get(position).getDatetimePosted().toString());
+        holder.setPostText(news.get(position).getText());
 //        holder.setText(dataset.get(position));
 //        holder.flagView.setImageResource(state.getFlagResource());
 //        holder.nameView.setText(state.getName());
@@ -56,6 +57,6 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
     @Override
     public int getItemCount() {
         // сюда скорее всего из ViewModel вписать количество
-        return dataset.getValue().size();
+        if (this.news != null) {return news.size();} else {return 0;}
     }
 }

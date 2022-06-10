@@ -18,8 +18,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.diploma_test.R;
+import com.example.diploma_test.api.GitHubRepo;
+import com.example.diploma_test.entity.News;
 import com.example.diploma_test.recyclers.DashboardRecyclerAdapter;
 import com.example.diploma_test.viewmodel.DashboardViewModel;
+
+import java.util.List;
 
 public class DashboardFragment extends Fragment {
 
@@ -34,19 +38,27 @@ public class DashboardFragment extends Fragment {
         dashboardViewModel =
                 new ViewModelProvider(this).get(DashboardViewModel.class);
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        //final TextView textView = root.findViewById(R.id.text_dashboard);
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+
+        dashboardViewModel.requestForAllNews();
+
+        dashboardViewModel.observableListOfAllNews().observe(getViewLifecycleOwner(), new Observer<List<News>>() {
             @Override
-            public void onChanged(@Nullable String s) {
-                recyclerAdapter.notifyDataSetChanged();
-                //textView.setText(s);
+            public void onChanged(List<News> news) {
+                recyclerAdapter.setNews(news);
             }
         });
 
+//            @Override
+//            public void onChanged(@Nullable String s) {
+//                recyclerAdapter.notifyDataSetChanged();
+//                //textView.setText(s);
+//            }
+//        });
+
+
+
 
         initRecyclerView(root);
-
-
 
         return root;
     }
@@ -59,7 +71,7 @@ public class DashboardFragment extends Fragment {
 
     private void initRecyclerView(View context) {
         recyclerAdapter = new DashboardRecyclerAdapter();
-        recyclerAdapter.init(dashboardViewModel.getNewsFeed());
+        //recyclerAdapter.init(dashboardViewModel.observableListOfAllNews());
         // Add the following lines to create RecyclerView
         recyclerView = context.findViewById(R.id.recyclerview);
         //recyclerView.setHasFixedSize(true);
