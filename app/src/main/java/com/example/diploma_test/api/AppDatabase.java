@@ -11,6 +11,7 @@ import com.example.diploma_test.entity.News;
 import com.example.diploma_test.entity.User;
 import com.example.diploma_test.repo.TestRepo;
 import com.example.diploma_test.entity.Token;
+import com.example.diploma_test.db.Converters;
 
 import java.util.Date;
 

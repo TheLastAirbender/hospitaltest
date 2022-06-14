@@ -10,17 +10,22 @@ import androidx.room.PrimaryKey;
 public class News {
    @PrimaryKey
    private int id;
-   @ColumnInfo(name = "news_author")
+//   @ColumnInfo(name = "news_author")
+  @ColumnInfo(name = "senderId")
    private String senderId;
-   @ColumnInfo(name = "news_datetimePosted")
-   private Date time;
-   @ColumnInfo(name = "news_text")
+//   @ColumnInfo(name = "news_datetimePosted")
+   @ColumnInfo(name="time")
+//   private Date time;
+   private String time;
+//   @ColumnInfo(name = "news_text")
+   @ColumnInfo(name = "message")
    private String message;
    //private Image img;
-   @ColumnInfo(name = "news_imgSource")
-   private String departmentId;
+//   @ColumnInfo(name = "news_imgSource")
+   @ColumnInfo(name = "departmentId")
+   private int departmentId;
 
-   public News(int id, String senderId, Date time, String message, String departmentId) {
+   public News(int id, String senderId, String time, String message, int departmentId) {
       this.id = id;
       this.senderId = senderId;
       this.time = time;
@@ -36,7 +41,7 @@ public class News {
       return senderId;
    }
 
-   public Date getTime() {
+   public String getTime() {
       return time;
    }
 
@@ -44,7 +49,7 @@ public class News {
       return message;
    }
 
-   public String getDepartmentId() {
+   public int getDepartmentId() {
       return departmentId;
    }
 }

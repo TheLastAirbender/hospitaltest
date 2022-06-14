@@ -23,6 +23,9 @@ import androidx.navigation.ui.NavigationUI;
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private SearchView searchView;
+    SharedPreferences prefs;
+    NavController navController;
+    NavHostFragment navHostFragment;
 
     // TODO: Видимо, надо хранить все кабинеты, врачей, которых будем искать через поиск локально в
     //  какой-то базе данных, потому что поиск будет осуществляться с помощью ArrayAdapter.getFilter().filter() и потом выводиться в ListView,
@@ -32,11 +35,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        SharedPreferences prefs = this.getSharedPreferences("com.example.diploma_test", Context.MODE_PRIVATE);
+        prefs = this.getSharedPreferences("com.example.diploma_test", Context.MODE_PRIVATE);
         if (prefs == null) {
             this.finish();
         }
 
+        System.out.println("IS THIS ADMIN? "+prefs.getString("adminrole","nodataAboutRoleInSharedPreferences"));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
@@ -47,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
                 R.id.navigation_chats, R.id.navigation_dashboard, R.id.navigation_wiki, R.id.navigation_map)
                 .build();
 
-        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
-        NavController navController = navHostFragment.getNavController();
+        navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+        navController = navHostFragment.getNavController();
         //NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
@@ -60,8 +64,7 @@ public class MainActivity extends AppCompatActivity {
         // Get the intent, verify the action and get the query
         Intent intent = getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
-            System.out.println("SUKKKAAAA");
+
             //doMySearch(query);
         }
     }

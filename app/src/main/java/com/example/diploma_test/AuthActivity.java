@@ -73,14 +73,15 @@ public class AuthActivity extends AppCompatActivity {
         loginViewModel.getToken().observe(this, new Observer<Token>() {
             @Override
             public void onChanged(Token token) {
-                System.out.println("SUUKA");
-                Toast toast = Toast.makeText(AuthActivity.this,"SALAM",Toast.LENGTH_SHORT );
+                System.out.println("Token onChanged in AuthActivity: "+token);
+//                Toast toast = Toast.makeText(AuthActivity.this,"SALAM",Toast.LENGTH_SHORT );
                 if(token != null) {
-                    System.out.println(token.getToken());
+                    System.out.println("Putting " + username.getText().toString() + " in SharedPreferences");
                     prefs.edit().putString("token",token.getToken()).apply();
+                    prefs.edit().putString("currentusername",username.getText().toString()).apply();
                     Intent intent = new Intent(AuthActivity.this,MainActivity.class);
                     startActivity(intent);
-                    //loginViewModel.getUsersRequestToRepo(" Bearer "+token.getToken());
+                    loginViewModel.getUsersRequestToRepo(" Bearer "+token.getToken());
                 }
 //                if (token != null) {
 //                Intent intent = new Intent(AuthActivity.this,MainActivity.class);
@@ -91,9 +92,28 @@ public class AuthActivity extends AppCompatActivity {
         loginViewModel.observableUsersList().observe(this, new Observer<List<User>>() {
             @Override
             public void onChanged(List<User> users) {
-//                System.out.println("PASKUDA");
                 for (User user : users) {
-                    System.out.println(user.getUsername());
+                    String username = prefs.getString("currentusername","nouser");
+//                    System.out.println("We trying to find: "+ username + " in username "+user.getUsername() + " name " + user.getFirstname() + " id " + user.getId() + " roles "+user.getRoles());
+                    if (username.equals(user.getUsername()) ) {
+                        System.out.println("Found current user in database");
+                        List<String> userRoles = user.getRoles();
+                        if (userRoles.isEmpty()) {
+                            System.out.println("THIS USER HAS NO RIGHTS");
+                            prefs.edit().putInt("adminrole",0).apply();
+                        }
+                        for (String role : user.getRoles()) {
+                            // ПЕРЕДЕЛАТЬ НА МЕНЕДЖЕРА
+                            System.out.println(role);
+                            if (role.toUpperCase().contains("USER")) {
+                                System.out.println("THIS USER HAS ADMIN RIGHTS");
+                                prefs.edit().putInt("adminrole",1).apply();
+                                break;}
+                            else {
+                                System.out.println("THIS USER IS A REGULAR USER");
+                                prefs.edit().putInt("adminrole",2).apply();}
+                        }
+                    }
                 }
             }
         });

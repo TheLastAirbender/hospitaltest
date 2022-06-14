@@ -2,6 +2,8 @@ package com.example.diploma_test.entity;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -20,13 +22,17 @@ public class User {
    @SerializedName("lastName")
    @ColumnInfo(name = "lastName")
    private String lastname;
+   @SerializedName("roles")
+   @ColumnInfo(name="roles")
+   private List<String> roles;
 
-   public User(Integer id, String username, String password, String firstname, String lastname) {
+   public User(Integer id, String username, String password, String firstname, String lastname, List<String> roles) {
       this.id = id;
       this.username = username;
       this.password = password;
       this.firstname = firstname;
       this.lastname = lastname;
+      this.roles = roles;
    }
 
    public Integer getId() {
@@ -47,5 +53,9 @@ public class User {
 
    public String getLastname() {
       return lastname;
+   }
+
+   public List<String> getRoles() {
+      return roles;
    }
 }

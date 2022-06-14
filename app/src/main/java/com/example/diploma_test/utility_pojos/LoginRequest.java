@@ -1,4 +1,4 @@
-package com.example.diploma_test.pojos;
+package com.example.diploma_test.utility_pojos;
 
 import com.google.gson.annotations.SerializedName;
 

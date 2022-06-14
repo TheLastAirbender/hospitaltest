@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.diploma_test.R;
 import com.example.diploma_test.entity.News;
+import com.example.diploma_test.utility_pojos.NewsInNewsfeed;
 
 import java.util.List;
 import java.util.Random;
@@ -17,10 +18,10 @@ import java.util.Random;
 public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecyclerViewHolder> {
     private Random random;
 //    private List<String> dataset;
-    private List<News> news;
+    private List<NewsInNewsfeed> news;
 
 
-    public void setNews(List<News> dataset) {
+    public void setNews(List<NewsInNewsfeed> dataset) {
         //this.random = new Random(seed);
         this.news = dataset;
         notifyDataSetChanged();
@@ -43,10 +44,10 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
     public void onBindViewHolder(@NonNull DashboardRecyclerViewHolder holder, int position) {
         //Integer newInt = dataset.get(position);
         System.out.println(position);
-        System.out.println(news.get(position).getSenderId());
+        System.out.println(news.get(position).getAuthor());
         //try{ holder.setHeader(dataset.get(position).getHeader());} catch (Exception e) {System.out.println(e);};
-        holder.setPostAuthor(news.get(position).getSenderId());
-        holder.setPostInfoAndDate(news.get(position).getTime().toString());
+        holder.setPostAuthor(news.get(position).getAuthor());
+        holder.setPostInfoAndDate(news.get(position).getDatetimeposted().toString());
         holder.setPostText(news.get(position).getMessage());
 //        holder.setText(dataset.get(position));
 //        holder.flagView.setImageResource(state.getFlagResource());

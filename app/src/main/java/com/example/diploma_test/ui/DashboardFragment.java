@@ -1,5 +1,9 @@
 package com.example.diploma_test.ui;
 
+import android.app.Activity;
+import androidx.fragment.app.FragmentManager;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,40 +16,53 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.diploma_test.MainActivity;
 import com.example.diploma_test.R;
 import com.example.diploma_test.api.GitHubRepo;
 import com.example.diploma_test.entity.News;
 import com.example.diploma_test.recyclers.DashboardRecyclerAdapter;
+import com.example.diploma_test.utility_pojos.NewsInNewsfeed;
 import com.example.diploma_test.viewmodel.DashboardViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
 public class DashboardFragment extends Fragment {
 
+    private SharedPreferences prefs;
     private RecyclerView recyclerView;
     private DashboardRecyclerAdapter recyclerAdapter;
     private DashboardViewModel dashboardViewModel;
     private Toolbar toolbar;
+    private NavHostFragment navHostFragment;
+    private NavController navController;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
+        prefs = getActivity().getSharedPreferences("com.example.app", Context.MODE_PRIVATE);
         dashboardViewModel =
                 new ViewModelProvider(this).get(DashboardViewModel.class);
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
         dashboardViewModel.requestForAllNews();
 
-        dashboardViewModel.observableListOfAllNews().observe(getViewLifecycleOwner(), new Observer<List<News>>() {
+        dashboardViewModel.observableListOfAllNews().observe(getViewLifecycleOwner(), new Observer<List<NewsInNewsfeed>>() {
             @Override
-            public void onChanged(List<News> news) {
-                for (News item : news) {
-                    System.out.println(item.getMessage());
+            public void onChanged(List<NewsInNewsfeed> news) {
+                System.out.println("observable news changed" + news);
+                for (NewsInNewsfeed item : news) {
+                    System.out.println("Inside fragment" + item.getMessage());
 
                 }
 
@@ -53,15 +70,23 @@ public class DashboardFragment extends Fragment {
             }
         });
 
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                recyclerAdapter.notifyDataSetChanged();
-//                //textView.setText(s);
-//            }
-//        });
+        // TODO: ПЕРЕДЕЛАТЬ ИЗ КОЛХОЗА НОРМАЛЬНО
+        navHostFragment = (NavHostFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+        navController = navHostFragment.getNavController();
+        FloatingActionButton fab = root.findViewById(R.id.addnewsfab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Integer role = prefs.getInt("adminrole",0);
+                if (role==0) {
+                    Snackbar.make(view, "You have absolutely no rights!", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+                CreatePostFragment nextFrag= new CreatePostFragment();
+                navController.navigate(R.id.create_new_post);
 
-
-
+            }
+        });
 
         initRecyclerView(root);
 

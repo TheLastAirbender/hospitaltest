@@ -9,4 +9,5 @@
     <string name="mapbox_access_token">pk.eyJ1Ijoic2tyYXBpdm5veSIsImEiOiJjbDQzdzBpNHMwN21mM2JvZDVycHg0MjI4In0.EVAin0I89fnCOHGqnckCjg</string>
     <string name="search_hint">Введите фамилию врача или номер кабинета</string>
     <string name="search_results">Результаты поиска:</string>
+    <string name="addnews">Поделиться новостью</string>
 </resources>

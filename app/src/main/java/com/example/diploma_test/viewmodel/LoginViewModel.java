@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.example.diploma_test.entity.Token;
 import com.example.diploma_test.entity.User;
-import com.example.diploma_test.pojos.LoginRequest;
+import com.example.diploma_test.utility_pojos.LoginRequest;
 import com.example.diploma_test.repo.UserRepo;
 
 import java.util.List;

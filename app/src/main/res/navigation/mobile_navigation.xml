@@ -28,4 +28,10 @@
         android:name="com.example.diploma_test.ui.MapFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_map" />
+
+    <fragment
+        android:id="@+id/create_new_post"
+        android:name="com.example.diploma_test.ui.CreatePostFragment"
+        android:label="@string/addnews"
+        tools:layout="@layout/fragment_createpost" />
 </navigation>

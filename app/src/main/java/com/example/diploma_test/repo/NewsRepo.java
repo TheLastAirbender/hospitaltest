@@ -13,6 +13,7 @@ import com.example.diploma_test.dao.UserDao;
 import com.example.diploma_test.entity.News;
 import com.example.diploma_test.entity.Token;
 import com.example.diploma_test.entity.User;
+import com.example.diploma_test.utility_pojos.NewsInNewsfeed;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -54,28 +55,29 @@ public class NewsRepo {
         call.enqueue(new Callback<List<News>>() {
             @Override
             public void onResponse(Call<List<News>> call, Response<List<News>> response) {
-                System.out.println("response from get all news: "+ response);
-//                System.out.println(response.body().get(0).getMessage());
-//                System.out.println(response.body().get(0).getSenderId());
-//                System.out.println(response.body().get(0).getTime());
-                //System.out.println(response.body().get(0).getText());
+                System.out.println("response from get all news: "+ response.body());
+                System.out.println(response.body().get(0).getMessage());
+                System.out.println(response.body().get(0).getSenderId());
+                System.out.println(response.body().get(0).getTime());
+//                System.out.println(response.body().get(0).getText());
 
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         newsDao.insertAll(response.body());
+//                        newsDao.insert(response.body().get(0));
                     }
-                });
+                }).start();
             }
 
             @Override
             public void onFailure(Call<List<News>> call, Throwable t) {
-
+                System.out.println(t);
             }
         });
     };
 
-    public LiveData<List<News>> getAllNewsFromRoom(){
+    public LiveData<List<NewsInNewsfeed>> getAllNewsFromRoom(){
         return newsDao.getAll();
     }
 

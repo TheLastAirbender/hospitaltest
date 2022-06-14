@@ -3,13 +3,11 @@ package com.example.diploma_test.api;
 import com.example.diploma_test.entity.News;
 import com.example.diploma_test.entity.Token;
 import com.example.diploma_test.entity.User;
-import com.example.diploma_test.pojos.LoginRequest;
-import com.example.diploma_test.pojos.LoginResponse;
+import com.example.diploma_test.utility_pojos.LoginRequest;
 
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;

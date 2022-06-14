@@ -7,6 +7,7 @@ import com.example.diploma_test.api.GitHubRepo;
 import com.example.diploma_test.entity.News;
 import com.example.diploma_test.repo.GithubRepoTest;
 import com.example.diploma_test.repo.NewsRepo;
+import com.example.diploma_test.utility_pojos.NewsInNewsfeed;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +56,7 @@ public class DashboardViewModel extends AndroidViewModel {
         return gitRepos;
     }
 
-    public LiveData<List<News>> observableListOfAllNews() {
+    public LiveData<List<NewsInNewsfeed>> observableListOfAllNews() {
         return newsRepo.getAllNewsFromRoom();
     }
 

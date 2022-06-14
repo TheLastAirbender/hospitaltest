@@ -1,29 +1,22 @@
 package com.example.diploma_test.repo;
 
 import android.app.Application;
-import android.service.autofill.UserData;
 
 import com.example.diploma_test.api.ApiInterface;
 import com.example.diploma_test.api.AppDatabase;
-import com.example.diploma_test.api.GitHubRepo;
-import com.example.diploma_test.api.GitHubRepoDao;
 import com.example.diploma_test.api.RetroInstance;
 import com.example.diploma_test.dao.TokenDao;
 import com.example.diploma_test.dao.UserDao;
-import com.example.diploma_test.entity.News;
 import com.example.diploma_test.entity.Token;
 import com.example.diploma_test.entity.User;
-import com.example.diploma_test.pojos.LoginRequest;
-import com.example.diploma_test.pojos.LoginResponse;
+import com.example.diploma_test.utility_pojos.LoginRequest;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class UserRepo {
@@ -72,7 +65,7 @@ public class UserRepo {
             call.enqueue(new Callback<List<User>>() {
                 @Override
                 public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                    System.out.println("get all users inside callback " + response.body().get(5).getFirstname());
+                    System.out.println("get all users inside callback " + response.body());
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
@@ -84,7 +77,7 @@ public class UserRepo {
 
                 @Override
                 public void onFailure(Call<List<User>> call, Throwable t) {
-
+                    System.out.println(t);
                 }
             });
 //        }
@@ -148,24 +141,24 @@ public class UserRepo {
     }*/
 
     private void setUsers(){
-        dataset = new ArrayList<>();
-//        dataset.add(new User(1,"klena92@mail.ru","pass1"));
-//        dataset.add(new User(1,"skrapivnoy@yandex.ru","pass2"));
-        User user = new User(42,"serejkaa@mail.ru","pass1","Sergey","Krapivnoy");
-        Call<Token> call = client.register(user);
-        call.timeout();
-        call.enqueue(new Callback<Token>() {
-            @Override
-            public void onResponse(Call<Token> call, Response<Token> response) {
-                System.out.println("response: "+response);
-            }
-
-            @Override
-            public void onFailure(Call<Token> call, Throwable t) {
-                //System.out.println("was a failure");
-
-            }
-        });
+//        dataset = new ArrayList<>();
+////        dataset.add(new User(1,"klena92@mail.ru","pass1"));
+////        dataset.add(new User(1,"skrapivnoy@yandex.ru","pass2"));
+//        User user = new User(42,"serejkaa@mail.ru","pass1","Sergey","Krapivnoy");
+//        Call<Token> call = client.register(user);
+//        call.timeout();
+//        call.enqueue(new Callback<Token>() {
+//            @Override
+//            public void onResponse(Call<Token> call, Response<Token> response) {
+//                System.out.println("response: "+response);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Token> call, Throwable t) {
+//                //System.out.println("was a failure");
+//
+//            }
+//        });
 
     }
 }
