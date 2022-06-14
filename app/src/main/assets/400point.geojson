@@ -1,0 +1,14 @@
+{
+      "type": "Feature",
+      "properties": {
+        "layer": "Point400"
+      },
+      "geometry": {
+        "coordinates": [
+          104.260129,
+          52.250574
+        ],
+        "type": "Point"
+      },
+      "id": "3faf946eb51ba1dd87a2e36ce0aa64b0"
+    }

@@ -1,12 +1,15 @@
 package com.example.diploma_test;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.diploma_test.api.ApiInterface;
 import com.example.diploma_test.api.AppDatabase;
@@ -34,6 +37,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AuthActivity extends AppCompatActivity {
     LoginViewModel loginViewModel;
+    SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,9 @@ public class AuthActivity extends AppCompatActivity {
         EditText username = (EditText) findViewById(R.id.loginEditText);
         EditText password = (EditText) findViewById(R.id.passEditText);
         Button login = (Button) findViewById(R.id.loginButton);
+
+        prefs = this.getSharedPreferences(
+                "com.example.app", Context.MODE_PRIVATE);
 
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
@@ -67,8 +74,10 @@ public class AuthActivity extends AppCompatActivity {
             @Override
             public void onChanged(Token token) {
                 System.out.println("SUUKA");
+                Toast toast = Toast.makeText(AuthActivity.this,"SALAM",Toast.LENGTH_SHORT );
                 if(token != null) {
                     System.out.println(token.getToken());
+                    prefs.edit().putString("token",token.getToken()).apply();
                     Intent intent = new Intent(AuthActivity.this,MainActivity.class);
                     startActivity(intent);
                     //loginViewModel.getUsersRequestToRepo(" Bearer "+token.getToken());

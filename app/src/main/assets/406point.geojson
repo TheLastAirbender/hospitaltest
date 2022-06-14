@@ -1,0 +1,14 @@
+{
+      "type": "Feature",
+      "properties": {
+        "layer": "Point406"
+      },
+      "geometry": {
+        "coordinates": [
+          104.259903,
+          52.250863
+        ],
+        "type": "Point"
+      },
+      "id": "a784bc017d025f8d81de423d258e9936"
+    }

@@ -131,6 +131,7 @@ public class UserRepo {
     }
 
     public LiveData<Token> getToken(){
+        System.out.println("Returning now Token from TOKEN DAO");
         return tokenDao.getToken();
     }
     /*public LiveData<User> login(String username, String password){

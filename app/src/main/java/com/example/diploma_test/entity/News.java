@@ -9,45 +9,42 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "news")
 public class News {
    @PrimaryKey
-   private int news_id;
+   private int id;
    @ColumnInfo(name = "news_author")
-   private String author;
+   private String senderId;
    @ColumnInfo(name = "news_datetimePosted")
-   private Date datetimePosted;
+   private Date time;
    @ColumnInfo(name = "news_text")
-   private String text;
+   private String message;
    //private Image img;
    @ColumnInfo(name = "news_imgSource")
-   private String imgSource;
+   private String departmentId;
 
-   public News(String author, Date datetimePosted, String text, String imgSource) {
-      this.author = author;
-      this.datetimePosted = datetimePosted;
-      this.text = text;
-      this.imgSource = imgSource;
+   public News(int id, String senderId, Date time, String message, String departmentId) {
+      this.id = id;
+      this.senderId = senderId;
+      this.time = time;
+      this.message = message;
+      this.departmentId = departmentId;
    }
 
-   public void setNews_id(int news_id) {
-      this.news_id = news_id;
+   public int getId() {
+      return id;
    }
 
-   public int getNews_id() {
-      return news_id;
+   public String getSenderId() {
+      return senderId;
    }
 
-   public Date getDatetimePosted() {
-      return datetimePosted;
+   public Date getTime() {
+      return time;
    }
 
-   public String getAuthor() {
-      return author;
+   public String getMessage() {
+      return message;
    }
 
-   public String getText() {
-      return text;
-   }
-
-   public String getImgSource() {
-      return imgSource;
+   public String getDepartmentId() {
+      return departmentId;
    }
 }

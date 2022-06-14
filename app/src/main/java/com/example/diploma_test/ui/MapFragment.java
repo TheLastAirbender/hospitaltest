@@ -1,40 +1,64 @@
 package com.example.diploma_test.ui;
 
+import android.graphics.PointF;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.diploma_test.MainActivity;
 import com.example.diploma_test.R;
+import com.example.diploma_test.entity.CabinetMissing;
+import com.example.diploma_test.map.MapData;
 import com.example.diploma_test.viewmodel.MapViewModel;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.mapbox.geojson.Feature;
 import com.mapbox.mapboxsdk.Mapbox;
+import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
+import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.maps.Style;
+import com.mapbox.mapboxsdk.style.layers.Layer;
+import com.mapbox.mapboxsdk.style.layers.PropertyFactory;
 
-public class MapFragment extends Fragment implements View.OnClickListener {
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+public class MapFragment extends Fragment implements OnMapReadyCallback, MapboxMap.OnMapClickListener {
 
     private MapViewModel mapViewModel;
     private Button myButton;
     private MapView mapView;
     private MapboxMap mbMap;
+    private MapData mapData;
+    ArrayDeque<Layer> rooms = new ArrayDeque<>();
+    BottomSheetDialogFragment bottomSheetFragment;
+    FragmentManager childFragmentManager;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        Mapbox.getInstance(getContext(),"pk.eyJ1Ijoic2tyYXBpdm5veSIsImEiOiJjbDQzeDRscTIwOHc5M2pueW93NDZqZHV5In0.S56KqEQ33W52vO4cY08mvg");
+        Mapbox.getInstance(getContext(), "pk.eyJ1Ijoic2tyYXBpdm5veSIsImEiOiJjbDQzeDRscTIwOHc5M2pueW93NDZqZHV5In0.S56KqEQ33W52vO4cY08mvg");
 
-        mapViewModel =
-                new ViewModelProvider(this).get(MapViewModel.class);
+//        mapViewModel = new ViewModelProvider(this).get(MapViewModel.class);
+        mapViewModel = MapViewModel.getInstance(getActivity().getApplication());
         View root = inflater.inflate(R.layout.fragment_map, container, false);
 
         //final TextView textView = root.findViewById(R.id.text_notifications);
@@ -51,20 +75,7 @@ public class MapFragment extends Fragment implements View.OnClickListener {
 
         mapView = root.findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
-
-        mapView.getMapAsync(new com.mapbox.mapboxsdk.maps.OnMapReadyCallback() {
-            @Override
-            public void onMapReady(@NonNull final MapboxMap mapboxMap) {
-                mbMap = mapboxMap;
-                mapboxMap.setStyle(Style.MAPBOX_STREETS, new Style.OnStyleLoaded() {
-                    @Override
-                    public void onStyleLoaded(@NonNull Style style) {
-                        //create this function & code further stuff there
-                        //initMapStuff(style);
-                    }
-                });
-            }
-        });
+        mapView.getMapAsync(this);
 
         myButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,30 +86,148 @@ public class MapFragment extends Fragment implements View.OnClickListener {
         });
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.title_map);
+
+//        RelativeLayout bottomSheetLayout = root.findViewById(R.id.bottom_sheet);
+//        BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
+//        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+        bottomSheetFragment = new BottomSheetFragment();
+        mapViewModel.setCurrentRoom(new CabinetMissing("INITIAL STATE"));
+
         return root;
 
     }
 
+    @Override
+    public void onMapReady(@NonNull MapboxMap mapboxMap) {
+        this.mbMap = mapboxMap;
+//         mapboxMap.setStyle(new Style.Builder().fromUri("mapbox://username/styleid");
+        mapboxMap.setStyle(Style.MAPBOX_STREETS, new Style.OnStyleLoaded() {
+            @Override
+            public void onStyleLoaded(@NonNull Style style) {
+                //create this function & code further stuff there
+                //initMapStuff(style);
+                System.out.println("OnMapReady");
+                mapData = new MapData(style, getContext());
+
+            }
+        });
+        mbMap.addOnMapClickListener(this);
+    }
 
     @Override
-    public void onClick(@NonNull View v) {
-       /* switch(v.getId()){
-            case R.id.myNotiButton:
-                System.out.println("BUTTON CLICKED");
-                notificationsViewModel.setData("SUCK MY NICK");
+    public boolean onMapClick(@NonNull final LatLng point) {
+        System.out.println("Clicked on " + point);
+        mapData.setLocation(point.getLongitude(),point.getLatitude());
+        bottomSheetFragment.show(getFragmentManager(), bottomSheetFragment.getTag());
 
-                Toast toast = Toast.makeText(getActivity(),
-                        "Пора покормить кота!", Toast.LENGTH_SHORT);
-                toast.show();
-                *//** Do things you need to..
-                 fragmentTwo = new FragmentTwo();
+        this.mbMap.getStyle(new Style.OnStyleLoaded() {
+            @Override
+            public void onStyleLoaded(@NonNull Style style) {
+                //после клика получаем позицию, переводим полученные долготу и широту в положение на экране
+                final PointF finalPoint = mbMap.getProjection().toScreenLocation(point);
+                //получаем данные из слоя, если точка принадлежит ему
+                mapData.getFeatures(mbMap, finalPoint);
+                int onRoomClick = -1;
+                for (int i=0;i< mapData.features.size();i++){
+                    if (mapData.features.get(i).size()>0){
+                        onRoomClick = i;
+                        break;
+                    }
+                }
 
-                 fragmentTransaction.replace(R.id.frameLayoutFragmentContainer, fragmentTwo);
-                 fragmentTransaction.addToBackStack(null);
+                //если данные не пусты, т.е. если клик был совершен на слое
+                if (onRoomClick>=0){
+                    for (Layer room: rooms)
+                        room.setProperties(PropertyFactory.fillOpacity(0.0f));
+                    rooms.add(style.getLayer(mapData.roomsNames[onRoomClick]));
+                    myButton.setText(mapData.description[onRoomClick]);
+                    mapViewModel.setCurrentRoom(new CabinetMissing(mapData.description[onRoomClick]));
+//                    Log.d("onRoomClick", tv.getAlpha()+" " + tv.getTextColors());
 
-                 fragmentTransaction.commit();
-                 *//*
-                break;
-        }*/
+                    //выделяем слой с кабинетом и делаем надпись
+                    Layer room = rooms.getLast();
+                    room.setProperties(PropertyFactory.fillOpacity(0.5f));
+                    //запускаем asyncTask на 3 секунды, после которых надпись и подсветка исчезнут
+                    Task t = new Task();
+                    t.execute();
+                }
+            }
+        });
+        return true;
+    }
+
+    //необходимые методы
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mapView.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mapView.onStop();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mapView.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapView.onLowMemory();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mapView.onDestroy();
+    }
+
+    public class Task extends AsyncTask<Void,Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Layer room = rooms.getFirst();
+            room.setProperties(PropertyFactory.fillOpacity(0.0f));
+            rooms.removeFirst();
+            myButton.setText("");
+            bottomSheetFragment.dismiss();
+        }
     }
 }
+

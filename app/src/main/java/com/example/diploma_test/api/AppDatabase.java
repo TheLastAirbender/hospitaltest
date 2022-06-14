@@ -28,7 +28,8 @@ public abstract class AppDatabase extends RoomDatabase {
 
    // Я ТАК ПОНИМАЮ, ТУТ ТОЖЕ СИНГЛТОН БУДЕТ
    public static AppDatabase getInstance(Context context) {
-      if (instance==null) {
+      if (instance == null) {
+         System.out.println("APPDATABASE INSTANCE IS NULL CREATING ONE");
          instance= Room.databaseBuilder(context.getApplicationContext(),
                  AppDatabase.class, "database-name").build();
       }

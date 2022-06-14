@@ -44,6 +44,11 @@ public class DashboardFragment extends Fragment {
         dashboardViewModel.observableListOfAllNews().observe(getViewLifecycleOwner(), new Observer<List<News>>() {
             @Override
             public void onChanged(List<News> news) {
+                for (News item : news) {
+                    System.out.println(item.getMessage());
+
+                }
+
                 recyclerAdapter.setNews(news);
             }
         });

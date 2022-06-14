@@ -24,7 +24,7 @@ public class DashboardViewModel extends AndroidViewModel {
     private ArrayList<News> newsList;
 
     private NewsRepo newsRepo;
-    public MutableLiveData<List<News>> mAllPlaces;
+    public LiveData<List<News>> mAllNews;
 
     //test
     private LiveData<List<GitHubRepo>> gitRepos;
@@ -40,6 +40,8 @@ public class DashboardViewModel extends AndroidViewModel {
 //        }
         // здесь сначала вытаскиваем все данные из хранилища
         newsRepo = new NewsRepo(application);
+        //mAllNews = newsRepo.getAllNewsFromRoom();
+
 //        mAllPlaces = mRepository.getNewsfeed();
 
 //        gitRepo = new GithubRepoTest(application);

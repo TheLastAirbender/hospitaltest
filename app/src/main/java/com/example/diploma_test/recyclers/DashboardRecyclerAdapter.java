@@ -43,11 +43,11 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
     public void onBindViewHolder(@NonNull DashboardRecyclerViewHolder holder, int position) {
         //Integer newInt = dataset.get(position);
         System.out.println(position);
-        System.out.println(news.get(position).getAuthor());
+        System.out.println(news.get(position).getSenderId());
         //try{ holder.setHeader(dataset.get(position).getHeader());} catch (Exception e) {System.out.println(e);};
-        holder.setPostAuthor(news.get(position).getAuthor());
-        holder.setPostInfoAndDate(news.get(position).getDatetimePosted().toString());
-        holder.setPostText(news.get(position).getText());
+        holder.setPostAuthor(news.get(position).getSenderId());
+        holder.setPostInfoAndDate(news.get(position).getTime().toString());
+        holder.setPostText(news.get(position).getMessage());
 //        holder.setText(dataset.get(position));
 //        holder.flagView.setImageResource(state.getFlagResource());
 //        holder.nameView.setText(state.getName());

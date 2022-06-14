@@ -47,7 +47,7 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
     implementation 'com.mapbox.mapboxsdk:mapbox-sdk-services:4.3.0'
-    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:6.8.1'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:7.0.0'
     implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-places-v7:0.7.0'
     implementation ('com.mapbox.mapboxsdk:mapbox-android-geocoder:1.0.0@aar'){
         transitive=true
@@ -56,5 +56,12 @@ dependencies {
     implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-markerview-v7:0.2.0'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    // Home Page : https://commons.apache.org/
+
+// IO - https://commons.apache.org/proper/commons-io/
+    implementation group: 'commons-io', name: 'commons-io', version: '2.7'
+
+// String / Text
+    implementation group: 'org.apache.commons', name: 'commons-text', version: '1.8'
 
 }

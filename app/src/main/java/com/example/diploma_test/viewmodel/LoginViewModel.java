@@ -1,12 +1,10 @@
 package com.example.diploma_test.viewmodel;
 
 import android.app.Application;
-import android.util.Log;
 
 import com.example.diploma_test.entity.Token;
 import com.example.diploma_test.entity.User;
 import com.example.diploma_test.pojos.LoginRequest;
-import com.example.diploma_test.pojos.LoginResponse;
 import com.example.diploma_test.repo.UserRepo;
 
 import java.util.List;
@@ -15,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 public class LoginViewModel extends AndroidViewModel {
    private UserRepo loginRepository;
@@ -63,8 +60,9 @@ public class LoginViewModel extends AndroidViewModel {
    };
 
    public LiveData<Token> getToken(){
-      //return loginRepository.getToken();
-      return token;
+//      MutableLiveData<Token> tokenMutableLiveData = new MutableLiveData<>();
+      return loginRepository.getToken();
+//      return tokenMutableLiveData.setValue(token);
    }
 
 }

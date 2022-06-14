@@ -15,8 +15,11 @@ import androidx.room.Update;
 
 @Dao
 public interface TokenDao {
-    @Query("SELECT * FROM token_table LIMIT 1")
+    @Query("SELECT * FROM token_table")
     LiveData<Token> getToken();
+
+    @Query("SELECT * FROM token_table LIMIT 1")
+    Token getTokenInstantsly();
 
     @Insert
     void insert(Token token);

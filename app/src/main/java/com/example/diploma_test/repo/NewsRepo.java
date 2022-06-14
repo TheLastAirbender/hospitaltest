@@ -1,6 +1,8 @@
 package com.example.diploma_test.repo;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.example.diploma_test.api.ApiInterface;
 import com.example.diploma_test.api.AppDatabase;
@@ -31,27 +33,33 @@ public class NewsRepo {
     private NewsDao newsDao;
     private TokenDao tokenDao;
     private ApiInterface client;
+    SharedPreferences prefs;
 
+    private LiveData<Token> token;
     private LiveData<List<News>> listNews;
 
     public NewsRepo(Application application) {
+        prefs = application.getSharedPreferences("com.example.app", Context.MODE_PRIVATE);
         client = RetroInstance.getRetroClient().create(ApiInterface.class);
         AppDatabase db = AppDatabase.getInstance(application);
         newsDao = db.getNewsDao();
         userDao = db.getUserDao();
         tokenDao = db.getTokenDao();
-
-        listNews = newsDao.getAll();
-
-
     }
 
     public void getAllNewsFromServer(){
-        Call<List<News>> call = client.getAllNews(tokenDao.getToken().getValue().getToken());
+        String token = prefs.getString("token","");
+        System.out.println("Got token from SharedPreferences " + token);
+        Call<List<News>> call = client.getAllNews("Bearer "+token);
         call.enqueue(new Callback<List<News>>() {
             @Override
             public void onResponse(Call<List<News>> call, Response<List<News>> response) {
                 System.out.println("response from get all news: "+ response);
+//                System.out.println(response.body().get(0).getMessage());
+//                System.out.println(response.body().get(0).getSenderId());
+//                System.out.println(response.body().get(0).getTime());
+                //System.out.println(response.body().get(0).getText());
+
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -65,7 +73,6 @@ public class NewsRepo {
 
             }
         });
-
     };
 
     public LiveData<List<News>> getAllNewsFromRoom(){
