@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -10,39 +10,40 @@
         android:padding="3dp"
         android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/chatImageView"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@android:drawable/ic_popup_reminder"/>
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
             <TextView
-                android:id="@+id/chatNameTextView"
+                android:id="@+id/fakeTextViewForAdapter"
+                android:layout_height="0dp"
+                android:layout_width="0dp"
+                android:visibility="invisible"
+                tools:ignore="Suspicious0dp" />
+            <TextView
+                android:id="@+id/senderTextView"
                 android:textSize="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Петр Петрович" />
+                android:text="Петр Петрович"
+                android:textStyle="bold"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constr22"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:id="@+id/lastMessageTextView"
+                    android:id="@+id/messageTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="Сообщение в чате"
                     app:layout_constraintLeft_toLeftOf="parent"/>
                 <TextView
-                    android:id="@+id/lastMessageTime"
+                    android:id="@+id/messageSentTime"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    android:text="5 мин назад" />
+                    android:text="16:35" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>

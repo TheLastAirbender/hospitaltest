@@ -14,6 +14,7 @@ public class RetroInstance {
     // *************** RETROFIT TEST *****************
     //public static String API_BASE_URL = "https://api.github.com/";
     public static String API_BASE_URL = "http://195.206.49.75:5432/messenger-system/";
+    //public static String API_BASE_URL = "https://messenger-restful.herokuapp.com/messenger-system/";
     private static Retrofit retrofit;
 
     public static Retrofit getRetroClient() {

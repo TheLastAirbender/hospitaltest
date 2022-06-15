@@ -1,4 +1,4 @@
-package com.example.diploma_test.api;
+package com.example.diploma_test.onlyfortests;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

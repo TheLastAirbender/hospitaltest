@@ -1,23 +1,20 @@
 package com.example.diploma_test.viewmodel;
 
 import android.app.Application;
-import android.content.Context;
 
-import com.example.diploma_test.api.GitHubRepo;
+import com.example.diploma_test.onlyfortests.GitHubRepo;
 import com.example.diploma_test.entity.News;
-import com.example.diploma_test.repo.GithubRepoTest;
+import com.example.diploma_test.onlyfortests.GithubRepoTest;
 import com.example.diploma_test.repo.NewsRepo;
 import com.example.diploma_test.utility_pojos.NewsInNewsfeed;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.GuardedBy;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 public class DashboardViewModel extends AndroidViewModel {
 

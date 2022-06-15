@@ -1,6 +1,5 @@
 package com.example.diploma_test;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,31 +8,16 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.example.diploma_test.api.ApiInterface;
-import com.example.diploma_test.api.AppDatabase;
-import com.example.diploma_test.api.GitHubRepo;
-import com.example.diploma_test.api.GitHubRepoDao;
 import com.example.diploma_test.entity.Token;
 import com.example.diploma_test.entity.User;
-import com.example.diploma_test.viewmodel.DashboardViewModel;
 import com.example.diploma_test.viewmodel.LoginViewModel;
 
 import java.util.List;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.room.Room;
-import okhttp3.OkHttpClient;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AuthActivity extends AppCompatActivity {
     LoginViewModel loginViewModel;

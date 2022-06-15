@@ -1,25 +1,27 @@
-package com.example.diploma_test.recyclers;
+package com.example.diploma_test.listAdaptersAndHolders;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.diploma_test.R;
-import com.example.diploma_test.entity.News;
 import com.example.diploma_test.utility_pojos.NewsInNewsfeed;
 
 import java.util.List;
 import java.util.Random;
 
-public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecyclerViewHolder> {
+public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecyclerViewHolder>{
     private Random random;
 //    private List<String> dataset;
     private List<NewsInNewsfeed> news;
 
+    // тест
+    public NewsInNewsfeed getNews(int position){
+      return news.get(position);
+    }
 
     public void setNews(List<NewsInNewsfeed> dataset) {
         //this.random = new Random(seed);

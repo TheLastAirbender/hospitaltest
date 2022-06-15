@@ -3,7 +3,7 @@ package com.example.diploma_test.repo;
 import android.app.Application;
 
 import com.example.diploma_test.api.ApiInterface;
-import com.example.diploma_test.api.AppDatabase;
+import com.example.diploma_test.db.AppDatabase;
 import com.example.diploma_test.api.RetroInstance;
 import com.example.diploma_test.dao.TokenDao;
 import com.example.diploma_test.dao.UserDao;

@@ -34,4 +34,10 @@
         android:name="com.example.diploma_test.ui.CreatePostFragment"
         android:label="@string/addnews"
         tools:layout="@layout/fragment_createpost" />
+
+    <fragment
+        android:id="@+id/fragment_inside_chat"
+        android:name="com.example.diploma_test.ui.ChannelFragment"
+        android:label="@string/addnews"
+        tools:layout="@layout/fragment_insidechat" />
 </navigation>

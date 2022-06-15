@@ -1,4 +1,4 @@
-package com.example.diploma_test.recyclers;
+package com.example.diploma_test.listAdaptersAndHolders;
 
 import android.view.View;
 import android.widget.TextView;
@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.diploma_test.R;
 
-public class DashboardRecyclerViewHolder extends RecyclerView.ViewHolder {
+public class DashboardRecyclerViewHolder extends RecyclerView.ViewHolder{
     private CardView view;
     private TextView author;
     private TextView postInfoAndDate;

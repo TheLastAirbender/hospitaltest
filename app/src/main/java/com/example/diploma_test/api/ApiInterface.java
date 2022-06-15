@@ -1,8 +1,10 @@
 package com.example.diploma_test.api;
 
+import com.example.diploma_test.entity.Channel;
 import com.example.diploma_test.entity.News;
 import com.example.diploma_test.entity.Token;
 import com.example.diploma_test.entity.User;
+import com.example.diploma_test.onlyfortests.GitHubRepo;
 import com.example.diploma_test.utility_pojos.LoginRequest;
 
 import java.util.List;
@@ -37,4 +39,9 @@ public interface ApiInterface {
     @GET("api/v1/newsfeed/1")
     @Headers("accept: application/json")
     Call<List<News>> getAllNews(@Header("Authorization") String token);
+
+    //******************* CHATS ***********************
+    @GET("api/v1/chats/channels/")
+    @Headers("accept: application/json")
+    Call<List<Channel>> getAllChannels(@Header("Authorization") String token);
 }

@@ -5,24 +5,20 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.diploma_test.api.ApiInterface;
-import com.example.diploma_test.api.AppDatabase;
+import com.example.diploma_test.db.AppDatabase;
 import com.example.diploma_test.api.RetroInstance;
 import com.example.diploma_test.dao.NewsDao;
 import com.example.diploma_test.dao.TokenDao;
 import com.example.diploma_test.dao.UserDao;
 import com.example.diploma_test.entity.News;
 import com.example.diploma_test.entity.Token;
-import com.example.diploma_test.entity.User;
 import com.example.diploma_test.utility_pojos.NewsInNewsfeed;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class NewsRepo {

@@ -1,13 +1,10 @@
-package com.example.diploma_test.repo;
+package com.example.diploma_test.onlyfortests;
 
 import android.app.Application;
 import android.content.Context;
 
-import com.example.diploma_test.MainActivity;
 import com.example.diploma_test.api.ApiInterface;
-import com.example.diploma_test.api.AppDatabase;
-import com.example.diploma_test.api.GitHubRepo;
-import com.example.diploma_test.api.GitHubRepoDao;
+import com.example.diploma_test.db.AppDatabase;
 import com.example.diploma_test.api.RetroInstance;
 import com.example.diploma_test.entity.User;
 
@@ -16,13 +13,9 @@ import java.util.List;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.room.Room;
-import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class GithubRepoTest {
 
@@ -51,7 +44,7 @@ public class GithubRepoTest {
               @Override
               public void onResponse(Call<List<GitHubRepo>> call, Response<List<GitHubRepo>> response) {
                  // The network call was a success and we got a response
-                 // TODO: use the repository list and display it
+                 // TDO: use the repository list and display it
                  List<GitHubRepo> list = response.body();
                  System.out.println(list.get(4).getName());
                  //repos.setValue(list);
@@ -67,7 +60,7 @@ public class GithubRepoTest {
               @Override
               public void onFailure(Call<List<GitHubRepo>> call, Throwable t) {
                  // the network call was a failure
-                 // TODO: handle error
+                 // TDO: handle error
                  System.out.println("Error calling API");
               }
            });

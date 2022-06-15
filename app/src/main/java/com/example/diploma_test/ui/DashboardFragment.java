@@ -1,7 +1,5 @@
 package com.example.diploma_test.ui;
 
-import android.app.Activity;
-import androidx.fragment.app.FragmentManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,24 +10,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.diploma_test.MainActivity;
 import com.example.diploma_test.R;
-import com.example.diploma_test.api.GitHubRepo;
-import com.example.diploma_test.entity.News;
-import com.example.diploma_test.recyclers.DashboardRecyclerAdapter;
+import com.example.diploma_test.listAdaptersAndHolders.DashboardRecyclerAdapter;
 import com.example.diploma_test.utility_pojos.NewsInNewsfeed;
 import com.example.diploma_test.viewmodel.DashboardViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -77,9 +69,11 @@ public class DashboardFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                System.out.println(recyclerAdapter.getNews(0).getMessage());
+
                 Integer role = prefs.getInt("adminrole",0);
                 if (role==0) {
-                    Snackbar.make(view, "You have absolutely no rights!", Snackbar.LENGTH_LONG)
+                    Snackbar.make(view, "Извините, вы не можете публиковать новости!", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
                 CreatePostFragment nextFrag= new CreatePostFragment();
@@ -106,7 +100,7 @@ public class DashboardFragment extends Fragment {
         recyclerView = context.findViewById(R.id.recyclerview);
         //recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(context.getContext()));
-        // TODO: загрузить из ViewModel и бахнуть туда
+        // ODO: загрузить из ViewModel и бахнуть туда
 
         recyclerView.setAdapter(recyclerAdapter);
     }
